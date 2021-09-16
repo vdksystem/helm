@@ -7,9 +7,11 @@
         },
         "autoscaling": {
             "type": "object",
+            "form": true,
             "properties": {
                 "enabled": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "form": true
                 },
                 "maxReplicas": {
                     "type": "integer"
@@ -27,15 +29,18 @@
         },
         "image": {
             "type": "object",
+            "form": true,
             "properties": {
                 "pullPolicy": {
                     "type": "string"
                 },
                 "repository": {
-                    "type": "string"
+                    "type": "string",
+                    "form": true
                 },
                 "tag": {
-                    "type": "string"
+                    "type": "string",
+                    "form": true
                 }
             }
         },
@@ -44,6 +49,7 @@
         },
         "ingress": {
             "type": "object",
+            "form": true,
             "properties": {
                 "annotations": {
                     "type": "object"
@@ -52,7 +58,8 @@
                     "type": "string"
                 },
                 "enabled": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "form": true
                 },
                 "hosts": {
                     "type": "array",
