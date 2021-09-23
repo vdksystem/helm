@@ -61,4 +61,15 @@ entries:
     urls:
     - https://github.com/vdksystem/helm/releases/download/jupyterlab-0.1.0/jupyterlab-0.1.0.tgz
     version: 0.1.0
+  prefect-agent:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2021-09-23T13:29:38.312334233Z"
+    description: A Helm chart for Kubernetes
+    digest: 9d6d3ab925c8ec036c309a76227e5160990a1aec446a6eed06b83a3410a2d6bc
+    name: prefect-agent
+    type: application
+    urls:
+    - https://github.com/vdksystem/helm/releases/download/prefect-agent-0.1.0/prefect-agent-0.1.0.tgz
+    version: 0.1.0
 generated: "2021-09-16T11:39:27.977856429Z"
