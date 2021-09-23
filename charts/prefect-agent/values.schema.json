@@ -97,7 +97,6 @@
             "type": "object"
         },
         "prefect": {
-            "form": true,
             "type": "object",
             "properties": {
                 "api_key": {
