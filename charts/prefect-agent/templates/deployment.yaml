@@ -1,18 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: {{ include "prefect-agent.fullname" . }}
   labels:
-    app: prefect-agent
-  name: prefect-agent
+    {{- include "prefect-agent.labels" . | nindent 4 }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: prefect-agent
+      {{- include "prefect-agent.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       labels:
-        app: prefect-agent
+        {{- include "prefect-agent.selectorLabels" . | nindent 8 }}
     spec:
       containers:
       - args:
