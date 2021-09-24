@@ -18,6 +18,7 @@ spec:
       labels:
         {{- include "prefect-agent.selectorLabels" . | nindent 8 }}
     spec:
+      serviceAccountName: {{ include "prefect-agent.serviceAccountName" . }}
       containers:
       - args:
         - prefect agent kubernetes start -l k8s -ldkuleshov
