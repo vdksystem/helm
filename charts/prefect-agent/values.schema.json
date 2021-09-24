@@ -101,7 +101,7 @@
             "properties": {
                 "api_key": {
                     "form": true,
-                    "type": "null"
+                    "type": "string"
                 }
             }
         },
