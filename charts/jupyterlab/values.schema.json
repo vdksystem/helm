@@ -139,6 +139,10 @@
         },
         "tolerations": {
             "type": "array"
+        },
+        "jupyterLab": {
+            "form": true,
+            "type": "boolean"
         }
     }
 }
