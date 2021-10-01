@@ -42,7 +42,7 @@ spec:
           {{- if .Values.jupyterLab }}
           env:
             - name: JUPYTER_ENABLE_LAB
-              value: yes
+              value: "yes"
           {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
