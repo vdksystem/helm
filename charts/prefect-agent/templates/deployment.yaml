@@ -21,7 +21,7 @@ spec:
       serviceAccountName: {{ include "prefect-agent.serviceAccountName" . }}
       containers:
       - args:
-        - prefect agent kubernetes start -l k8s -ldkuleshov
+        - prefect agent local start
         command:
         - /bin/bash
         - -c
@@ -59,8 +59,8 @@ spec:
               name: {{ include "prefect-agent.fullname" . }}
         - name: PREFECT__CLOUD__TENANT_ID
           value: ''
-        image: prefecthq/prefect:0.15.5-python3.6
-        imagePullPolicy: Always
+        image: prefecthq/prefect
+        imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 2
           httpGet:
