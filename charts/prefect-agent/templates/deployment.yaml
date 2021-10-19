@@ -21,7 +21,7 @@ spec:
       serviceAccountName: {{ include "prefect-agent.serviceAccountName" . }}
       containers:
       - args:
-        - prefect agent local start{{ if .Values.prefect.labels }} -l {{ .Values.prefect.labels }}{{ end }}
+        - prefect agent local start{{ if .Values.prefect.label }} -l {{ .Values.prefect.label }}{{ end }}
         command:
         - /bin/bash
         - -c

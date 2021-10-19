@@ -65,7 +65,7 @@
                 "label": {
                     "form": true,
                     "type": "string",
-                    "title": "Prefect label",
+                    "title": "Prefect additional label",
                     "description": "Unfortunately kubeapps forms UI doesn't support arrays, so single value"
                 }
             }
