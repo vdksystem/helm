@@ -20,7 +20,11 @@ spec:
     spec:
       serviceAccountName: {{ include "prefect-agent.serviceAccountName" . }}
       containers:
-      - name: agent
+      - args:
+        - prefect agent local start
+        command:
+        - /bin/bash
+        - -c
         env:
         - name: PREFECT__CLOUD__AGENT__AUTH_TOKEN
           value: ''
@@ -64,3 +68,4 @@ spec:
             port: 8080
           initialDelaySeconds: 40
           periodSeconds: 40
+        name: agent
