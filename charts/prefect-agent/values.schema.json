@@ -61,6 +61,11 @@
                     "form": true,
                     "type": "string",
                     "title": "PREFECT__CLOUD__API_KEY"
+                },
+                "labels": {
+                    "form": true,
+                    "type": "array",
+                    "title": "Prefect labels"
                 }
             }
         },
