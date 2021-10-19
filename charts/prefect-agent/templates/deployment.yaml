@@ -53,7 +53,10 @@ spec:
         - name: PREFECT__CLOUD__AGENT__AGENT_ADDRESS
           value: http://:8080
         - name: PREFECT__CLOUD__API_KEY
-          value: {{ .Values.prefect.api_key | quote }}
+          valueFrom:
+            secretKeyRef:
+              key: PREFECT__CLOUD__API_KEY
+              name: {{ include "prefect-agent.fullname" . }}
         - name: PREFECT__CLOUD__TENANT_ID
           value: ''
         image: prefecthq/prefect:0.15.5-python3.6

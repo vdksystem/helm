@@ -42,48 +42,6 @@
         "imagePullSecrets": {
             "type": "array"
         },
-        "ingress": {
-            "type": "object",
-            "properties": {
-                "annotations": {
-                    "type": "object"
-                },
-                "className": {
-                    "type": "string"
-                },
-                "enabled": {
-                    "type": "boolean"
-                },
-                "hosts": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "host": {
-                                "type": "string"
-                            },
-                            "paths": {
-                                "type": "array",
-                                "items": {
-                                    "type": "object",
-                                    "properties": {
-                                        "path": {
-                                            "type": "string"
-                                        },
-                                        "pathType": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "tls": {
-                    "type": "array"
-                }
-            }
-        },
         "nameOverride": {
             "type": "string"
         },
@@ -101,7 +59,8 @@
             "properties": {
                 "api_key": {
                     "form": true,
-                    "type": "string"
+                    "type": "string",
+                    "title": "PREFECT__CLOUD__API_KEY"
                 }
             }
         },
@@ -109,7 +68,35 @@
             "type": "integer"
         },
         "resources": {
-            "type": "object"
+          "type": "object",
+          "title": "Required Resources",
+          "description": "Configure resource requests",
+          "form": true,
+          "properties": {
+            "requests": {
+              "type": "object",
+              "properties": {
+                "memory": {
+                  "type": "string",
+                  "form": true,
+                  "render": "slider",
+                  "title": "Memory Request",
+                  "sliderMin": 10,
+                  "sliderMax": 2048,
+                  "sliderUnit": "Mi"
+                },
+                "cpu": {
+                  "type": "string",
+                  "form": true,
+                  "render": "slider",
+                  "title": "CPU Request",
+                  "sliderMin": 10,
+                  "sliderMax": 2000,
+                  "sliderUnit": "m"
+                }
+              }
+            }
+          }
         },
         "securityContext": {
             "type": "object"
