@@ -67,4 +67,4 @@ affinity: {}
 
 prefect:
   api_key: ""
-  labels: []
+  labels: "test"

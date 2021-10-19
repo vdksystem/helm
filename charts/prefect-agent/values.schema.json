@@ -62,10 +62,11 @@
                     "type": "string",
                     "title": "PREFECT__CLOUD__API_KEY"
                 },
-                "labels": {
+                "label": {
                     "form": true,
-                    "type": "array",
-                    "title": "Prefect labels"
+                    "type": "string",
+                    "title": "Prefect label",
+                    "description": "Unfortunately kubeapps forms UI doesn't support arrays, so single value"
                 }
             }
         },
