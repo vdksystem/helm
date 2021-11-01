@@ -3,6 +3,16 @@ entries:
   jupyterlab:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2021-11-01T16:19:03.674906504Z"
+    description: A Helm chart for Kubernetes
+    digest: 812efd74c299e1fe33bb7b26337cc6f2aef9edb632ece7b093de9839c95e4c92
+    name: jupyterlab
+    type: application
+    urls:
+    - https://github.com/vdksystem/helm/releases/download/jupyterlab-1.3.0/jupyterlab-1.3.0.tgz
+    version: 1.3.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2021-11-01T15:57:30.739906061Z"
     description: A Helm chart for Kubernetes
     digest: eeb9810556fa18e446d89f094e3879ae4965cec57c8fa4a4494b3f15b43c8564
