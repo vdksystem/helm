@@ -27,20 +27,21 @@
         "fullnameOverride": {
             "type": "string"
         },
+        "gid": {
+            "form": true,
+            "type": "integer"
+        },
         "image": {
             "type": "object",
-            "form": true,
             "properties": {
                 "pullPolicy": {
                     "type": "string"
                 },
                 "repository": {
-                    "type": "string",
-                    "form": true
+                    "type": "string"
                 },
                 "tag": {
-                    "type": "string",
-                    "form": true
+                    "type": "string"
                 }
             }
         },
@@ -48,48 +49,22 @@
             "type": "array"
         },
         "ingress": {
-            "type": "object",
             "form": true,
+            "type": "object",
             "properties": {
                 "annotations": {
+                    "form": true,
                     "type": "object"
                 },
-                "className": {
-                    "type": "string"
-                },
                 "enabled": {
-                    "type": "boolean",
-                    "form": true
-                },
-                "hosts": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "host": {
-                                "type": "string"
-                            },
-                            "paths": {
-                                "type": "array",
-                                "items": {
-                                    "type": "object",
-                                    "properties": {
-                                        "path": {
-                                            "type": "string"
-                                        },
-                                        "pathType": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "tls": {
-                    "type": "array"
+                    "form": true,
+                    "type": "boolean"
                 }
             }
+        },
+        "jupyterLab": {
+            "form": true,
+            "type": "boolean"
         },
         "nameOverride": {
             "type": "string"
@@ -140,9 +115,9 @@
         "tolerations": {
             "type": "array"
         },
-        "jupyterLab": {
+        "uid": {
             "form": true,
-            "type": "boolean"
+            "type": "integer"
         }
     }
 }
