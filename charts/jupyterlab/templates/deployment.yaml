@@ -30,13 +30,17 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            runAsUser: {{ .Values.uid }}
+            runAsGroup: {{ .Values.gid }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
               containerPort: 80
               protocol: TCP
+          volumeMounts:
+            - mountPath: /home/jovyan
+              name: home
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- if .Values.jupyterLab }}
@@ -56,3 +60,8 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+        - name: home
+          nfs:
+            path: /volume1/cqspace/home/{{.Release.Namespace}}
+            server: cqnfs
