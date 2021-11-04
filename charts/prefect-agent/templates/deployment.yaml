@@ -73,7 +73,7 @@ spec:
           initialDelaySeconds: 40
           periodSeconds: 40
         name: agent
-        {{- if and .Values.nfs .Values.nfs.claimName }}
+        {{- if .Values.nfs }}
         volumeMounts:
           - mountPath: /home/jovyan
             name: home
