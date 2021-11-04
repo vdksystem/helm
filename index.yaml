@@ -167,6 +167,16 @@ entries:
   prefect-agent:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2021-11-04T18:44:36.633547449Z"
+    description: A Helm chart for Kubernetes
+    digest: 7a540ebf1db4702c43387d4198eb75c9ad792825220aa321853ec0cb782f14f3
+    name: prefect-agent
+    type: application
+    urls:
+    - https://github.com/vdksystem/helm/releases/download/prefect-agent-0.3.4/prefect-agent-0.3.4.tgz
+    version: 0.3.4
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2021-10-19T19:38:24.766712858Z"
     description: A Helm chart for Kubernetes
     digest: fd1db5c173d6cb45c33807ca6a592f2543b3acf8623ec242c3eed2a655eb9b39
