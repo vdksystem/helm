@@ -69,3 +69,14 @@ spec:
           initialDelaySeconds: 40
           periodSeconds: 40
         name: agent
+        {{- if and .Values.nfs .Values.nfs.claimName }}
+        volumeMounts:
+          - mountPath: /home/jovyan
+            name: home
+        {{- end }}
+      {{- if and .Values.nfs .Values.nfs.claimName }}
+      volumes:
+        - name: home
+          persistentVolumeClaim:
+            claimName: {{ include "prefect-agent.fullname" . }}
+      {{- end }}

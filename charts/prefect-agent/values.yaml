@@ -68,3 +68,8 @@ affinity: {}
 prefect:
   api_key: ""
   label: ""
+nfs:
+  enabled: false
+  # If home claim already exists, specify claim name,
+  # if not, leave claimName empty, so pvc would be created TODO:dkuleshov
+  claimName:
