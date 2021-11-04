@@ -74,9 +74,9 @@ spec:
           - mountPath: /home/jovyan
             name: home
         {{- end }}
-      {{- if and .Values.nfs .Values.nfs.claimName }}
+      {{- if and .Values.nfs }}
       volumes:
-        - name: home
-          persistentVolumeClaim:
-            claimName: {{ include "prefect-agent.fullname" . }}
+        nfs:
+          path: /volume1/cqspace/home/{{.Release.Namespace}}
+          server: cqnfs
       {{- end }}
