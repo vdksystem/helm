@@ -2,9 +2,9 @@ rbac:
   create: true
   ## Use an existing ClusterRole/Role (depending on rbac.namespaced false/true)
   # useExistingRole: name-of-some-(cluster)role
-  pspEnabled: true
-  pspUseAppArmor: true
-  namespaced: false
+  pspEnabled: false
+  pspUseAppArmor: false
+  namespaced: true
   extraRoleRules: []
   # - apiGroups: []
   #   resources: []
@@ -183,7 +183,8 @@ ingress:
   # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
   # ingressClassName: nginx
   # Values can be templated
-  annotations: {}
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production-dns
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   labels: {}
@@ -193,7 +194,7 @@ ingress:
   pathType: Prefix
 
   hosts:
-    - chart-example.local
+    - grafana-dkuleshov.dev.cloudquant.ai
   ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
   extraPaths: []
   # - path: /*
@@ -210,10 +211,10 @@ ingress:
   #         name: use-annotation
 
 
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+  tls:
+    - secretName: grafana-ingress-tls
+      hosts:
+        - grafana-dkuleshov.dev.cloudquant.ai
 
 resources: {}
 #  limits:
@@ -272,7 +273,7 @@ extraContainerVolumes: []
 persistence:
   type: pvc
   enabled: false
-  # storageClassName: default
+  storageClassName: nfs-under-home
   accessModes:
     - ReadWriteOnce
   size: 10Gi
@@ -322,7 +323,7 @@ initChownData:
 
 # Administrator credentials when not using an existing secret (see below)
 adminUser: admin
-# adminPassword: strongpassword
+adminPassword: strongpassword
 
 # Use an existing secret for the admin user.
 admin:

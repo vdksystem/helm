@@ -20,6 +20,10 @@
             "form": true,
             "type": "string"
         },
+        "adminPassword": {
+            "form": true,
+            "type": "string"
+        },
         "affinity": {
             "type": "object"
         },
