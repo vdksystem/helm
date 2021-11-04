@@ -114,7 +114,27 @@
           }
         },
         "securityContext": {
-            "type": "object"
+            "type": "object",
+            "properties": {
+                "fsGroup": {
+                    "form": true,
+                    "type": "integer"
+                },
+                "readOnlyRootFilesystem": {
+                    "type": "boolean"
+                },
+                "runAsGroup": {
+                    "form": true,
+                    "type": "integer"
+                },
+                "runAsNonRoot": {
+                    "type": "boolean"
+                },
+                "runAsUser": {
+                    "form": true,
+                    "type": "integer"
+                }
+            }
         },
         "service": {
             "type": "object",
