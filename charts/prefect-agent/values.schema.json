@@ -45,6 +45,15 @@
         "nameOverride": {
             "type": "string"
         },
+        "nfs": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "form": true,
+                    "type": "boolean"
+                }
+            }
+        },
         "nodeSelector": {
             "type": "object"
         },
