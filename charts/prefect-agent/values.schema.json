@@ -78,6 +78,11 @@
                     "type": "string",
                     "title": "Prefect additional label",
                     "description": "Unfortunately kubeapps forms UI doesn't support arrays, so single value"
+                },
+                "condaEnv": {
+                    "form": true,
+                    "type": "string",
+                    "title": "Conda env to use"
                 }
             }
         },

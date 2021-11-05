@@ -70,5 +70,6 @@ affinity: {}
 prefect:
   api_key: ""
   label: ""
+  condaEnv: ""
 nfs:
   enabled: true
