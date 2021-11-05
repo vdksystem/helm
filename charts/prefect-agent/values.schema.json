@@ -32,9 +32,11 @@
                     "type": "string"
                 },
                 "repository": {
+                    "form": true,
                     "type": "string"
                 },
                 "tag": {
+                    "form": true,
                     "type": "string"
                 }
             }
