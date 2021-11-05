@@ -66,6 +66,10 @@
             "form": true,
             "type": "boolean"
         },
+        "jupyterPassword": {
+            "form": true,
+            "type": "string"
+        },
         "nameOverride": {
             "type": "string"
         },

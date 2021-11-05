@@ -39,6 +39,8 @@ spec:
               containerPort: 8888
               protocol: TCP
           volumeMounts:
+            - mountPath: /home/{{.Release.Namespace }}
+              name: home
             - mountPath: /home/jovyan
               name: home
           resources:
@@ -47,6 +49,8 @@ spec:
           env:
             - name: JUPYTER_ENABLE_LAB
               value: "yes"
+            - name: JUPYTER_TOKEN
+              value: {{ .Values.jupyterPassword | quote}}
           {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
