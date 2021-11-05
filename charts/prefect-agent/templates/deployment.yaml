@@ -63,7 +63,7 @@ spec:
               name: {{ include "prefect-agent.fullname" . }}
         - name: PREFECT__CLOUD__TENANT_ID
           value: ''
-        image: prefecthq/prefect
+        image: {{.Values.image.repository}}:{{.Values.image.tag}}
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 2
