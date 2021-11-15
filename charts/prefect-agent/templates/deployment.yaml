@@ -25,30 +25,25 @@ spec:
       serviceAccountName: {{ include "prefect-agent.serviceAccountName" . }}
       containers:
       - env:
+        - name: LIBERATOR_REST_HOST
+          value: 10.12.32.22
+        - name: LIBERATOR_REST_PORT
+          value: "47753"
+        - name: LIBERATOR_SYSTEM
+          value: Prefect
+        - name: LIBERATOR_TOKEN
+          value: {{ .Values.liberator.token }}
+        - name: LIBERATOR_USER
+          value: {{ .Values.liberator.user | default .Release.Namespace }}
         - name: PREFECT__CLOUD__AGENT__AUTH_TOKEN
-          value: ''
-        - name: PREFECT__CLOUD__API
-          value: https://api.prefect.io
-        - name: NAMESPACE
-          value: prefect-demo
-        - name: IMAGE_PULL_SECRETS
-          value: ''
-        - name: JOB_MEM_REQUEST
-          value: ''
-        - name: JOB_MEM_LIMIT
-          value: ''
-        - name: JOB_CPU_REQUEST
-          value: ''
-        - name: JOB_CPU_LIMIT
-          value: ''
-        - name: IMAGE_PULL_POLICY
-          value: ''
-        - name: SERVICE_ACCOUNT_NAME
-          value: ''
-        - name: PREFECT__BACKEND
-          value: cloud
-        - name: PREFECT__CLOUD__AGENT__AGENT_ADDRESS
-          value: http://:8080
+          value: {{ .Values.prefect.api_key }}
+        - name: USER
+          value: {{ .Release.Namespace }}
+        - name: PREFECT__CLOUD__AGENT__NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
         - name: PREFECT__CLOUD__API_KEY
           valueFrom:
             secretKeyRef:
@@ -57,28 +52,31 @@ spec:
         - name: PREFECT__CLOUD__TENANT_ID
           value: ''
         - name: PREFECT__CLOUD__AGENT__LABELS
-          value: {{ .Values.prefect.label }}
+          value: '["{{.Release.Namespace}}", "{{ .Values.prefect.label }}"]'
         - name: USER_PREFECT_ENV
-          value:
+          value: {{ .Values.prefect.condaEnv }}
         image: {{.Values.image.repository}}:{{.Values.image.tag}}
         imagePullPolicy: IfNotPresent
-        livenessProbe:
-          failureThreshold: 2
-          httpGet:
-            path: /api/health
-            port: 8080
-          initialDelaySeconds: 40
-          periodSeconds: 40
         name: agent
-        {{- if .Values.nfs }}
+        securityContext:
+          {{- toYaml .Values.podSecurityContext | nindent 10 }}
         volumeMounts:
+          - mountPath: /home/cloudQuant/anaconda3
+            name: prefect-nfs
+            readOnly: true
+            subPath: home/cloudQuant/anaconda3
+          - mountPath: /home/{{.Release.Namespace}}
+            name: prefect-nfs
+            subPath: home/{{.Release.Namespace}}
           - mountPath: /home/jovyan
-            name: home
-        {{- end }}
-      {{- if and .Values.nfs }}
+            name: prefect-nfs
+            subPath: home/{{.Release.Namespace}}
+          - mountPath: /var/data/shared/profile
+            name: prefect-nfs
+            readOnly: true
+            subPath: var_data/shared/profile
       volumes:
-        - name: home
+        - name: prefect-nfs
           nfs:
-            path: /volume1/cqspace/home/{{.Release.Namespace}}
+            path: /volume1/cqspace
             server: cqnfs
-      {{- end }}

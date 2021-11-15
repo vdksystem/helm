@@ -27,15 +27,15 @@ podAnnotations: {}
 
 podSecurityContext: {}
   # fsGroup: 2000
+#  runAsNonRoot: true
+#  runAsUser: 1000
+#  runAsGroup: 1000
 
-securityContext:
+securityContext: {}
   # capabilities:
   #   drop:
   #   - ALL
-  runAsNonRoot: true
-  runAsUser: 1000
-  runAsGroup: 1000
-  fsGroup: 1000
+#  fsGroup: 1000
 
 
 service:
@@ -71,5 +71,6 @@ prefect:
   api_key: ""
   label: ""
   condaEnv: ""
-nfs:
-  enabled: true
+liberator:
+  token: ""
+  user: ""
