@@ -43,6 +43,10 @@ spec:
               name: home
             - mountPath: /home/jovyan
               name: home
+            - mountPath: /home/jovyan/.ipython/profile_default/ipython_config.py
+              name: ipython-config
+            - mountPath: /home/jovyan/.jupyter/jupyter_notebook_config.py
+              name: jupyter-config
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- if .Values.jupyterLab }}
@@ -63,6 +67,18 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
+        - name: jupyter-config
+          configMap:
+            name: {{ include "jupyterlab.fullname" . }}
+            items:
+              - key: jupyter_notebook_config.py
+                path: jupyter_notebook_config.py
+        - name: ipython-config
+          configMap:
+            name: {{ include "jupyterlab.fullname" . }}
+            items:
+              - key: ipython_config.py
+                path: ipython_config.py
         - name: home
           nfs:
             path: /volume1/cqspace/home/{{.Release.Namespace}}
