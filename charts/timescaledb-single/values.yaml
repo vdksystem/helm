@@ -1,7 +1,7 @@
 # This file and its contents are licensed under the Apache License 2.0.
 # Please see the included NOTICE for copyright information and LICENSE for a copy of the license.
 
-replicaCount: 3
+replicaCount: 1
 
 # To prevent very long names, we override the name, otherwise it would default to
 # timescaledb-single (the name of the chart)
@@ -298,7 +298,7 @@ service:
 loadBalancer:
   # If not enabled, we still expose the primary using a so called Headless Service
   # https://kubernetes.io/docs/concepts/services-networking/service/#headless-services
-  enabled: true
+  enabled: false
   port: 5432
   # Read more about the AWS annotations here:
   # https://kubernetes.io/docs/concepts/cluster-administration/cloud-providers/#aws
@@ -575,7 +575,7 @@ serviceAccount:
 # Setting unsafe to true will generate some random credentials. This is meant
 # for development or first evaluation of the Helm Charts. It should *not* be
 # used for anything beyong the evaluation phase.
-unsafe: false
+unsafe: true
 
 debug:
   # This setting is mainly for during development, debugging or troubleshooting.
