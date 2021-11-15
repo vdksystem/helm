@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "prefect-agent.labels" . | nindent 4 }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       {{- include "prefect-agent.selectorLabels" . | nindent 6 }}
