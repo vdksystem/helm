@@ -43,10 +43,11 @@ spec:
               name: home
             - mountPath: /home/jovyan
               name: home
-            - mountPath: /home/jovyan/.ipython/profile_default/ipython_config.py
+            - mountPath: /home/jovyan/.ipython/profile_default
               name: ipython-config
             - mountPath: /home/jovyan/.jupyter/jupyter_notebook_config.py
               name: jupyter-config
+              subPath: jupyter_notebook_config.py
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- if .Values.jupyterLab }}
