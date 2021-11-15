@@ -49,8 +49,6 @@ spec:
           env:
             - name: JUPYTER_ENABLE_LAB
               value: "yes"
-            - name: JUPYTER_TOKEN
-              value: {{ .Values.jupyterPassword | quote}}
           {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
@@ -68,4 +66,4 @@ spec:
         - name: home
           nfs:
             path: /volume1/cqspace/home/{{.Release.Namespace}}
-            server: cqnfs
+            server: cqspace
