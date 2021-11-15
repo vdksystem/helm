@@ -83,6 +83,7 @@
             "type": "object"
         },
         "replicaCount": {
+            "form": true,
             "type": "integer"
         },
         "resources": {
