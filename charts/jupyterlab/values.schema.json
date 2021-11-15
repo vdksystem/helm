@@ -59,6 +59,10 @@
                 "enabled": {
                     "form": true,
                     "type": "boolean"
+                },
+                "hostSuffix": {
+                    "form": true,
+                    "type": "string"
                 }
             }
         },
