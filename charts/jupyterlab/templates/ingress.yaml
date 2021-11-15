@@ -21,6 +21,7 @@ metadata:
     {{- include "jupyterlab.labels" . | nindent 4 }}
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production-dns
+    nginx.org/websocket-services: "{{ include "jupyterlab.fullname" . }}"
   {{- with .Values.ingress.annotations }}
   {{- toYaml . | nindent 4 }}
   {{- end }}
