@@ -1634,7 +1634,7 @@
                             "type": "object",
                             "properties": {
                                 "pvcName": {
-                                    "type": "null"
+                                    "type": "string"
                                 },
                                 "subPath": {
                                     "type": "string"
