@@ -78,6 +78,51 @@ entries:
           name: traefik
     apiVersion: v2
     appVersion: 1.5.0
+    created: "2021-11-29T15:30:09.311125394Z"
+    description: Multi-user Jupyter installation
+    digest: 34b7e369db3677ee425503e2d0979361fafb87c6d798d4fd79ab8fed42bbe49b
+    home: https://z2jh.jupyter.org
+    icon: https://jupyter.org/assets/hublogo.svg
+    keywords:
+    - jupyter
+    - jupyterhub
+    - z2jh
+    kubeVersion: '>=1.17.0-0'
+    maintainers:
+    - email: erik@sundellopensource.se
+      name: Erik Sundell
+    - name: Simon Li
+      url: https://github.com/manics/
+    name: jupyterhub
+    sources:
+    - https://github.com/jupyterhub/zero-to-jupyterhub-k8s
+    urls:
+    - https://github.com/vdksystem/helm/releases/download/jupyterhub-1.2.12/jupyterhub-1.2.12.tgz
+    version: 1.2.12
+  - annotations:
+      artifacthub.io/images: |
+        - image: jupyterhub/configurable-http-proxy:4.5.0
+          name: configurable-http-proxy
+        - image: jupyterhub/k8s-hub:1.2.0
+          name: k8s-hub
+        - image: jupyterhub/k8s-image-awaiter:1.2.0
+          name: k8s-image-awaiter
+        - image: jupyterhub/k8s-network-tools:1.2.0
+          name: k8s-network-tools
+        - image: jupyterhub/k8s-secret-sync:1.2.0
+          name: k8s-secret-sync
+        - image: jupyterhub/k8s-singleuser-sample:1.2.0
+          name: k8s-singleuser-sample
+        - image: k8s.gcr.io/kube-scheduler:v1.19.13
+          name: kube-scheduler
+        - image: k8s.gcr.io/pause:3.5
+          name: pause
+        - image: k8s.gcr.io/pause:3.5
+          name: pause
+        - image: traefik:v2.4.11
+          name: traefik
+    apiVersion: v2
+    appVersion: 1.5.0
     created: "2021-11-29T15:27:08.640348729Z"
     description: Multi-user Jupyter installation
     digest: a088aa5e735734c2ad0d193a09cc55e302085237c14eb820cf2cbd99e865a1fb
