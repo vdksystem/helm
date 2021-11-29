@@ -382,7 +382,47 @@ singleuser:
     hub.jupyter.org/network-access-hub: "true"
   extraFiles: { }
   extraEnv: { }
-  lifecycleHooks: { }
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - bash
+          - -c
+          - |
+            set -e ; : 'warning: -e is inactive in many constructs' ;
+            echo jovyan:x:1000: >> /etc/group ;
+            echo ${NB_USER}:x:${NB_UID}:1000::/home/jovyan:/bin/bash >> /etc/passwd;
+            echo ${NB_USER}:x:${NB_UID}: >> /etc/group;
+            # LDAP_GROUPS: CQ.AI only, in hub/extraConfig/supplementalGidsHook
+            if [ -n "$LDAP_GROUPS" ] ; then
+              # can't use groupadd, groupmems, usermod.  sigh.
+              groups=   # will be comma-delimited group names
+              for group_gid in ${LDAP_GROUPS//:/ } ; do
+                group=${group_gid%=*}
+                gid=${group_gid##*=}
+                if [ -n "$group" ] && [ -n "$gid" ] ; then
+                  grep -qs "$group:" /etc/group || {
+                    # won't work if LDAP group name same as 1 in /etc/group
+                    echo "$group:x:$gid:$NB_USER" >> /etc/group
+                  }
+                fi
+              done
+            fi
+            ln -s jovyan /home/${NB_USER} ||: ;
+            mkdir -p cqai/market-data cqai/data cqai/showcase;
+            mkdir -p custom-env/envs custom-env/pkgs;
+            ln -sf /srv/cqai/data/* cqai/data/ ||: ;
+            ln -sf /srv/cqai/data/mktdb5/* cqai/market-data/ ||: ;
+            cp /base/custom-env/* custom-env;
+            ln -sf /srv/shared-scripts cqai/ ||: ;
+            ln -sf /srv/showcase cqai/ ||: ;
+            ln -sf /srv/tutorials cqai/ ||: ;
+            ln -sf /srv/admin cqai/ ||: ;
+            ln -sf /srv/team-env custom-env/ ||: ;
+            mkdir -p /home/jovyan/.local/share/jupyter/snippets;
+            rm -rf /home/jovyan/.local/share/jupyter/snippets;
+            cp -r --preserve=mode /base/snippets /home/jovyan/.local/share/jupyter/.;
+            cp /opt/conda/etc/jupyter/jupyter_notebook_config.py /home/jovyan/.jupyter/ ||: ;
   initContainers: [ ]
   extraContainers: [ ]
   uid: 1000
@@ -391,11 +431,48 @@ singleuser:
   storage:
     type: dynamic
     extraLabels: { }
-    extraVolumes: [ ]
-    extraVolumeMounts: [ ]
+    extraVolumes:
+      - name: cqai-data-volume
+        persistentVolumeClaim:
+          claimName: cqai-data-pvc
+      - name: cqai-bashrc-profile-volume
+        persistentVolumeClaim:
+          claimName: cqai-bashrc-profile-pvc
+    extraVolumeMounts:
+    - mountPath: /var/data/shared/profile
+      name: cqai-bashrc-profile-volume
+      readOnly: true
+    - mountPath: /srv/cqai/data
+      name: cqai-data-volume
+      readOnly: true
+      subPath: data
+    - mountPath: /srv/cqai/showcase
+      name: cqai-data-volume
+      readOnly: false
+      subPath: showcase
+    - mountPath: /srv/mktdb5
+      name: cqai-data-volume
+      readOnly: true
+      subPath: data/mktdb5
+    - mountPath: /srv/shared-scripts
+      name: cqai-data-volume
+      readOnly: false
+      subPath: shared-scripts
+    - mountPath: /srv/tutorials
+      name: cqai-data-volume
+      readOnly: false
+      subPath: tutorials
+    - mountPath: /srv/team-env
+      name: cqai-data-volume
+      readOnly: false
+      subPath: conda-env
+    - mountPath: /srv/admin
+      name: cqai-data-volume
+      readOnly: false
+      subPath: admin
     static:
-      pvcName:
-      subPath: "{username}"
+      pvcName: cqai-userdata-pvc
+      subPath: home/{username}
     capacity: 10Gi
     homeMountPath: /home/jovyan
     dynamic:
@@ -404,8 +481,8 @@ singleuser:
       volumeNameTemplate: volume-{username}{servername}
       storageAccessModes: [ ReadWriteOnce ]
   image:
-    name: jupyterhub/k8s-singleuser-sample
-    tag: "1.2.0"
+    name: docker.cloudquant.ai/cqai-spoke
+    tag: "0.1.93"
     pullPolicy:
     pullSecrets: [ ]
   startTimeout: 300
@@ -419,7 +496,7 @@ singleuser:
     limits: { }
     guarantees: { }
   cmd: jupyterhub-singleuser
-  defaultUrl:
+  defaultUrl: /lab
   extraPodConfig: { }
   profileList: [ ]
 
