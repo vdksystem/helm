@@ -1588,7 +1588,7 @@
                     "type": "array"
                 },
                 "serviceAccountName": {
-                    "type": "null"
+                    "type": "string"
                 },
                 "startTimeout": {
                     "type": "integer"
