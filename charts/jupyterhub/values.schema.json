@@ -53,6 +53,8 @@
         "hub": {
             "type": "object",
             "properties": {
+                "form": true,
+                "title": "Hub configuration",
                 "activeServerLimit": {
                     "type": "null"
                 },
@@ -243,6 +245,7 @@
                     "type": "array"
                 },
                 "fsGid": {
+                    "form": true,
                     "type": "integer"
                 },
                 "image": {
@@ -1357,6 +1360,8 @@
         "singleuser": {
             "type": "object",
             "properties": {
+                "title": "User environment configuration",
+                "form": true,
                 "cloudMetadata": {
                     "type": "object",
                     "properties": {
@@ -1467,6 +1472,7 @@
                     "type": "array"
                 },
                 "fsGid": {
+                    "form": true,
                     "type": "integer"
                 },
                 "image": {
@@ -1642,6 +1648,7 @@
                     }
                 },
                 "uid": {
+                    "form": true,
                     "type": "integer"
                 }
             }
