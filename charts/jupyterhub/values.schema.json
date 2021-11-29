@@ -1373,12 +1373,20 @@
                 },
                 "cpu": {
                     "type": "object",
+                    "form": true,
+                    "title": "Resource limits",
                     "properties": {
                         "guarantee": {
                             "type": "null"
                         },
                         "limit": {
-                            "type": "null"
+                            "type": "null",
+                            "form": true,
+                            "render": "slider",
+                            "title": "CPU Limit",
+                            "sliderMin": 10,
+                            "sliderMax": 2000,
+                            "sliderUnit": "m"
                         }
                     }
                 },
