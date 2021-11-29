@@ -56,7 +56,7 @@
             "properties": {
                 "form": true,
                 "activeServerLimit": {
-                    "type": "string"
+                    "type": "null"
                 },
                 "allowNamedServers": {
                     "type": "boolean"
@@ -68,7 +68,7 @@
                     "type": "array"
                 },
                 "authenticatePrometheus": {
-                    "type": "string"
+                    "type": "null"
                 },
                 "baseUrl": {
                     "type": "string"
@@ -162,13 +162,13 @@
                     }
                 },
                 "cookieSecret": {
-                    "type": "string"
+                    "type": "null"
                 },
                 "db": {
                     "type": "object",
                     "properties": {
                         "password": {
-                            "type": "string"
+                            "type": "null"
                         },
                         "pvc": {
                             "type": "object",
@@ -189,10 +189,10 @@
                                     "type": "string"
                                 },
                                 "storageClassName": {
-                                    "type": "string"
+                                    "type": "null"
                                 },
                                 "subPath": {
-                                    "type": "string"
+                                    "type": "null"
                                 }
                             }
                         },
@@ -200,10 +200,10 @@
                             "type": "string"
                         },
                         "upgrade": {
-                            "type": "string"
+                            "type": "null"
                         },
                         "url": {
-                            "type": "string"
+                            "type": "null"
                         }
                     }
                 },
@@ -216,7 +216,7 @@
                     }
                 },
                 "existingSecret": {
-                    "type": "string"
+                    "type": "null"
                 },
                 "extraConfig": {
                     "type": "object",
@@ -255,7 +255,7 @@
                             "type": "string"
                         },
                         "pullPolicy": {
-                            "type": "string"
+                            "type": "null"
                         },
                         "pullSecrets": {
                             "type": "array"
@@ -295,7 +295,7 @@
                     }
                 },
                 "namedServerLimitPerUser": {
-                    "type": "string"
+                    "type": "null"
                 },
                 "networkPolicy": {
                     "type": "object",
@@ -348,7 +348,7 @@
                             "type": "boolean"
                         },
                         "maxUnavailable": {
-                            "type": "string"
+                            "type": "null"
                         },
                         "minAvailable": {
                             "type": "integer"
@@ -376,7 +376,7 @@
                     }
                 },
                 "redirectToServer": {
-                    "type": "string"
+                    "type": "null"
                 },
                 "resources": {
                     "type": "object"
@@ -391,13 +391,13 @@
                             "type": "array"
                         },
                         "loadBalancerIP": {
-                            "type": "string"
+                            "type": "null"
                         },
                         "ports": {
                             "type": "object",
                             "properties": {
                                 "nodePort": {
-                                    "type": "string"
+                                    "type": "null"
                                 }
                             }
                         },
@@ -418,7 +418,7 @@
                     "type": "object"
                 },
                 "shutdownOnLogout": {
-                    "type": "string"
+                    "type": "null"
                 },
                 "templatePaths": {
                     "type": "array"
@@ -441,16 +441,16 @@
                     "type": "boolean"
                 },
                 "email": {
-                    "type": "string"
+                    "type": "null"
                 },
                 "password": {
-                    "type": "string"
+                    "type": "null"
                 },
                 "registry": {
-                    "type": "string"
+                    "type": "null"
                 },
                 "username": {
-                    "type": "string"
+                    "type": "null"
                 }
             }
         },
@@ -485,7 +485,7 @@
                     }
                 },
                 "pathSuffix": {
-                    "type": "string"
+                    "type": "null"
                 },
                 "pathType": {
                     "type": "string"
@@ -511,7 +511,7 @@
             }
         },
         "nameOverride": {
-            "type": "string"
+            "type": "null"
         },
         "prePuller": {
             "type": "object",
@@ -574,7 +574,7 @@
                                     "type": "string"
                                 },
                                 "pullPolicy": {
-                                    "type": "string"
+                                    "type": "null"
                                 },
                                 "pullSecrets": {
                                     "type": "array"
@@ -633,7 +633,7 @@
                                     "type": "string"
                                 },
                                 "pullPolicy": {
-                                    "type": "string"
+                                    "type": "null"
                                 },
                                 "pullSecrets": {
                                     "type": "array"
@@ -677,10 +677,10 @@
                             }
                         },
                         "defaultTarget": {
-                            "type": "string"
+                            "type": "null"
                         },
                         "errorTarget": {
-                            "type": "string"
+                            "type": "null"
                         },
                         "extraCommandLineFlags": {
                             "type": "array"
@@ -698,7 +698,7 @@
                                     "type": "string"
                                 },
                                 "pullPolicy": {
-                                    "type": "string"
+                                    "type": "null"
                                 },
                                 "pullSecrets": {
                                     "type": "array"
@@ -776,7 +776,7 @@
                                     "type": "boolean"
                                 },
                                 "maxUnavailable": {
-                                    "type": "string"
+                                    "type": "null"
                                 },
                                 "minAvailable": {
                                     "type": "integer"
@@ -812,7 +812,7 @@
                     "type": "object",
                     "properties": {
                         "rollingUpdate": {
-                            "type": "string"
+                            "type": "null"
                         },
                         "type": {
                             "type": "string"
@@ -835,7 +835,7 @@
                                     "type": "string"
                                 },
                                 "contactEmail": {
-                                    "type": "string"
+                                    "type": "null"
                                 }
                             }
                         },
@@ -843,10 +843,10 @@
                             "type": "object",
                             "properties": {
                                 "cert": {
-                                    "type": "string"
+                                    "type": "null"
                                 },
                                 "key": {
-                                    "type": "string"
+                                    "type": "null"
                                 }
                             }
                         },
@@ -860,7 +860,7 @@
                                     "type": "string"
                                 },
                                 "name": {
-                                    "type": "string"
+                                    "type": "null"
                                 }
                             }
                         },
@@ -896,7 +896,7 @@
                                     "type": "string"
                                 },
                                 "pullPolicy": {
-                                    "type": "string"
+                                    "type": "null"
                                 },
                                 "pullSecrets": {
                                     "type": "array"
@@ -912,7 +912,7 @@
                     }
                 },
                 "secretToken": {
-                    "type": "string"
+                    "type": "null"
                 },
                 "service": {
                     "type": "object",
@@ -930,7 +930,7 @@
                             "type": "object"
                         },
                         "loadBalancerIP": {
-                            "type": "string"
+                            "type": "null"
                         },
                         "loadBalancerSourceRanges": {
                             "type": "array"
@@ -939,10 +939,10 @@
                             "type": "object",
                             "properties": {
                                 "http": {
-                                    "type": "string"
+                                    "type": "null"
                                 },
                                 "https": {
-                                    "type": "string"
+                                    "type": "null"
                                 }
                             }
                         },
@@ -1010,7 +1010,7 @@
                                     "type": "string"
                                 },
                                 "pullPolicy": {
-                                    "type": "string"
+                                    "type": "null"
                                 },
                                 "pullSecrets": {
                                     "type": "array"
@@ -1077,7 +1077,7 @@
                                     "type": "boolean"
                                 },
                                 "maxUnavailable": {
-                                    "type": "string"
+                                    "type": "null"
                                 },
                                 "minAvailable": {
                                     "type": "integer"
@@ -1190,7 +1190,7 @@
                                     "type": "string"
                                 },
                                 "pullPolicy": {
-                                    "type": "string"
+                                    "type": "null"
                                 },
                                 "pullSecrets": {
                                     "type": "array"
@@ -1271,7 +1271,7 @@
                                     "type": "string"
                                 },
                                 "pullPolicy": {
-                                    "type": "string"
+                                    "type": "null"
                                 },
                                 "pullSecrets": {
                                     "type": "array"
@@ -1297,7 +1297,7 @@
                                     "type": "integer"
                                 },
                                 "minAvailable": {
-                                    "type": "string"
+                                    "type": "null"
                                 }
                             }
                         },
@@ -1382,7 +1382,7 @@
                     "title": "Resource limits",
                     "properties": {
                         "guarantee": {
-                            "type": "string"
+                            "type": "null"
                         },
                         "limit": {
                             "type": "integer",
@@ -1481,7 +1481,7 @@
                             "type": "string"
                         },
                         "pullPolicy": {
-                            "type": "string"
+                            "type": "null"
                         },
                         "pullSecrets": {
                             "type": "array"
@@ -1504,7 +1504,7 @@
                             "type": "string"
                         },
                         "limit": {
-                            "type": "string"
+                            "type": "null"
                         }
                     }
                 },
@@ -1565,7 +1565,7 @@
                                     "type": "string"
                                 },
                                 "pullPolicy": {
-                                    "type": "string"
+                                    "type": "null"
                                 },
                                 "pullSecrets": {
                                     "type": "array"
@@ -1581,7 +1581,7 @@
                     "type": "object"
                 },
                 "podNameTemplate": {
-                    "type": "string"
+                    "type": "null"
                 },
                 "profileList": {
                     "type": "array"
@@ -1611,7 +1611,7 @@
                                     }
                                 },
                                 "storageClass": {
-                                    "type": "string"
+                                    "type": "null"
                                 },
                                 "volumeNameTemplate": {
                                     "type": "string"
@@ -1634,7 +1634,7 @@
                             "type": "object",
                             "properties": {
                                 "pvcName": {
-                                    "type": "string"
+                                    "type": "null"
                                 },
                                 "subPath": {
                                     "type": "string"
