@@ -1385,7 +1385,7 @@
                             "type": "null"
                         },
                         "limit": {
-                            "type": "null",
+                            "type": "string",
                             "form": true,
                             "render": "slider",
                             "title": "CPU Limit",
