@@ -10,7 +10,7 @@ metadata:
   labels:
     {{- include "jupyterhub.labels" . | nindent 4 }}
 ---
-kind: ClusterRole
+kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: {{ include "jupyterhub.hub.fullname" . }}
@@ -27,7 +27,7 @@ rules:
     resources: ["namespaces"]
     verbs: ["get", "watch", "list", "create"]
 ---
-kind: ClusterRoleBinding
+kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: {{ include "jupyterhub.hub.fullname" . }}
@@ -38,7 +38,7 @@ subjects:
     name: {{ include "jupyterhub.hub.fullname" . }}
     namespace: "{{ .Release.Namespace }}"
 roleRef:
-  kind: ClusterRole
+  kind: Role
   name: {{ include "jupyterhub.hub.fullname" . }}
   apiGroup: rbac.authorization.k8s.io
 {{- end }}
