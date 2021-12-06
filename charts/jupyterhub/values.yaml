@@ -106,16 +106,109 @@ hub:
   command: [ ]
   args: [ ]
   extraConfig:
-    customConfig.py: |
-      c.KubeSpawner.enable_user_namespaces = False
+    10-secretToEnv: |
+      import base64
+      import requests
+
+      requests.packages.urllib3.disable_warnings()
+
+      from kubernetes import client  # , config
+
+
+      def modify_pod_hook(spawner, pod):
+          user = spawner.user.name
+          pod.spec.containers[0].env.append(
+              client.V1EnvVar(
+                  name='LIBERATOR_USER',
+                  value=user
+              )
+          )
+
+          # config.load_incluster_config()
+          secret = client.CoreV1Api().read_namespaced_secret(
+              "tath-token-secret",
+              "workbench")  # requires role/binding hub-secrets.yaml
+          tath_master_token = base64.b64decode(secret.data['token']).decode('ascii')
+          tath_userinfo_url = base64.b64decode(secret.data['url']).decode('ascii')
+          try:
+              r = requests.get(tath_userinfo_url + '/' + user + '?secrets=true&fields=token',
+                               headers={'X-Auth-Token': tath_master_token, 'Accept': 'application/json'},
+                               verify=False
+                               )
+              token = r.json()[user]['token']
+          except:
+              token = 'had_userinfo_exception'
+              pod.spec.containers[0].env.append(
+                  client.V1EnvVar(
+                      name='LIBERATOR_TOKEN',
+                      value=token
+                      # to defer getting a secret until later
+                      # value_from=client.V1EnvVarSource(
+                      #    secret_key_ref=client.V1SecretKeySelector(
+                      #        name='...',
+                      #        key='...',
+                      #    )
+                      # )
+                  )
+              )
+          return pod
+
+      c.KubeSpawner.modify_pod_hook = modify_pod_hook
+
+    legacy: |
+      c.JupyterHub.logo_file = '/usr/local/share/jupyter/hub/static/images/logo.png'
+      c.JupyterHub.ip = '127.0.0.1'
+      c.Spawner.args = [f'--NotebookApp.allow_origin={"*"}']
+      c.JupyterHub.tornado_settings = {'headers': {'Access-Control-Allow-Origin': '*',},}
+      c.NotebookApp.allow_origin = '*'
+    supplementalGidsHook: |
+      # At this stage we're in PID 1, in /srv/jupyterhub
+      # uid=1000 euid=1000 gid=1000 egid=1000 gids=1000
+      import ldap
+      def ldap_get_gids(spawner):
+        '''
+        Return group IDs from LDAP for the user,
+        and also set envvar LDAP_GROUPS for later use.
+        '''
+        gids = []
+        try:
+          user = spawner.user.name
+          group_dict = []
+          # don't really need encryption for a groups query
+          # (is there a way to reference auth/ldap/server from here?)
+          for url in ('ldap://ldap.cq/', 'ldaps://ldap.cq/'):
+            L = ldap.initialize(url)
+            try:
+              L.simple_bind()
+            except Exception:   # probably ldap.SERVER_DOWN
+              continue
+            # .search_s() is the synchronous variant
+            response = L.search_s('ou=groups,dc=cq', ldap.SCOPE_SUBTREE,
+                                  'memberUid=%s' % user,
+                                  ['cn', 'gidNumber'])
+            # the r[1] skips the dn in r[0]
+            group_dict = dict([(int(r[1]['gidNumber'][0]),
+                                    r[1]['cn'][0].decode('utf-8'))
+                               for r in response])
+          gids = sorted(group_dict)
+          # will use this var in singleuser/extraEnv/lifecycleHooks/postStart
+          spawner.environment['LDAP_GROUPS'] = ':'.join(
+            ['%s=%s' % (group, gid) for (gid, group)
+             in sorted(group_dict.items(), key=lambda x: x[0])  # sort on num
+             if gid != 1000  # skip the accursed krtradedata=1000 group ID
+            ])
+        except Exception:
+          spawner.environment['LDAP_GROUPS'] = '<error>'
+        return gids
+      c.KubeSpawner.supplemental_gids = ldap_get_gids
   extraFiles: { }
   extraEnv: { }
   extraContainers: [ ]
   extraVolumes: [ ]
   extraVolumeMounts: [ ]
   image:
-    name: jupyterhub/k8s-hub
-    tag: "1.2.0"
+    name: docker.cloudquant.ai/cqai-hub
+    tag: "0.1.22"
     pullPolicy:
     pullSecrets: [ ]
   resources: { }
@@ -381,7 +474,12 @@ singleuser:
   extraLabels:
     hub.jupyter.org/network-access-hub: "true"
   extraFiles: { }
-  extraEnv: { }
+  extraEnv:
+    CHOWN_HOME: "yes"
+    JUPYTER_ENABLE_LAB: "yes"
+    LIBERATOR_REST_HOST: 10.12.32.22
+    LIBERATOR_REST_PORT: "47753"
+    LIBERATOR_SYSTEM: CQ.AI
   lifecycleHooks:
     postStart:
       exec:
@@ -674,13 +772,13 @@ cull:
   enabled: true
   users: false # --cull-users
   removeNamedServers: false # --remove-named-servers
-  timeout: 3600 # --timeout
-  every: 600 # --cull-every
+  timeout: 86400 # --timeout
+  every: 3600 # --cull-every
   concurrency: 10 # --concurrency
   maxAge: 0 # --max-age
 
 debug:
-  enabled: false
+  enabled: true
 
 global:
   safeToShowValues: false
