@@ -158,8 +158,8 @@ hub:
   extraVolumes: [ ]
   extraVolumeMounts: [ ]
   image:
-    name: docker.cloudquant.ai/cqai-hub
-    tag: "0.1.22"
+    name: jupyterhub/k8s-hub
+    tag: "1.2.0"
     pullPolicy:
     pullSecrets: [ ]
   resources: { }
@@ -325,8 +325,13 @@ proxy:
     resources: { }
     labels: { }
     extraEnv: { }
-    extraVolumes: [ ]
-    extraVolumeMounts: [ ]
+    extraVolumes:
+      - name: templates
+        secret:
+          secretName: hub-templates
+    extraVolumeMounts:
+      - name: templates
+        mountPath: /srv/templates
     extraStaticConfig: { }
     extraDynamicConfig: { }
     nodeSelector: { }
