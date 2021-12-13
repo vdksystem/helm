@@ -460,7 +460,6 @@
             "type": "object",
             "properties": {
                 "annotations": {
-                    "form": true,
                     "type": "object",
                     "properties": {
                         "cert-manager.io/cluster-issuer": {
@@ -477,7 +476,6 @@
                     "type": "boolean"
                 },
                 "hosts": {
-                    "form": true,
                     "type": "array",
                     "items": {
                         "type": "string"
@@ -490,7 +488,6 @@
                     "type": "string"
                 },
                 "tls": {
-                    "form": true,
                     "type": "array",
                     "items": {
                         "type": "object",
@@ -1381,7 +1378,12 @@
                     "title": "Resource limits",
                     "properties": {
                         "guarantee": {
-                            "type": "null"
+                            "form": true,
+                            "render": "slider",
+                            "title": "CPU guaranteed",
+                            "sliderMin": 1,
+                            "sliderMax": 4,
+                            "type": "integer"
                         },
                         "limit": {
                             "type": "integer",
@@ -1497,12 +1499,23 @@
                 },
                 "memory": {
                     "type": "object",
+                    "form": true,
                     "properties": {
                         "guarantee": {
-                            "type": "string"
+                            "form": true,
+                            "type": "string",
+                            "render": "slider",
+                            "sliderMin": 1,
+                            "sliderMax": 20,
+                            "sliderUnit": "Gi"
                         },
                         "limit": {
-                            "type": "null"
+                            "form": true,
+                            "type": "string",
+                            "render": "slider",
+                            "sliderMin": 1,
+                            "sliderMax": 20,
+                            "sliderUnit": "Gi"
                         }
                     }
                 },

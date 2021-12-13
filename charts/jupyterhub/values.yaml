@@ -136,7 +136,6 @@ hub:
           gids = list(groups.values())
           if 1000 not in gids:
             gids.append(1000)
-            gids.append(100)
           return gids
 
       def ldap_get_uid(spawner):
@@ -152,7 +151,7 @@ hub:
           return uid.value
 
       c.KubeSpawner.uid = ldap_get_uid
-      c.KubeSpawner.gid = 100
+      c.KubeSpawner.gid = ldap_get_uid
       c.KubeSpawner.fs_gid = ldap_get_uid
       c.KubeSpawner.supplemental_gids = ldap_get_gids
   extraFiles: { }
@@ -544,10 +543,10 @@ singleuser:
     pullSecrets: [ ]
   startTimeout: 300
   cpu:
-    limit:
-    guarantee:
+    limit: 1
+    guarantee: 1
   memory:
-    limit:
+    limit: 1G
     guarantee: 1G
   extraResource:
     limits: { }
