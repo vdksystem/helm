@@ -476,7 +476,7 @@ singleuser:
   extraContainers: [ ]
   uid: 1000
   fsGid: 100
-  serviceAccountName:
+  serviceAccountName: ""
   storage:
     type: dynamic
     extraLabels: { }
