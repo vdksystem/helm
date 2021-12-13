@@ -245,7 +245,6 @@
                     "type": "array"
                 },
                 "fsGid": {
-                    "form": true,
                     "type": "integer"
                 },
                 "image": {
@@ -1471,7 +1470,6 @@
                     "type": "array"
                 },
                 "fsGid": {
-                    "form": true,
                     "type": "integer"
                 },
                 "image": {
@@ -1647,7 +1645,6 @@
                     }
                 },
                 "uid": {
-                    "form": true,
                     "type": "integer"
                 }
             }
