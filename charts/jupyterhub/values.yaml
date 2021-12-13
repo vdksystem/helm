@@ -155,8 +155,13 @@ hub:
   extraFiles: { }
   extraEnv: { }
   extraContainers: [ ]
-  extraVolumes: [ ]
-  extraVolumeMounts: [ ]
+  extraVolumes:
+    - name: templates
+      secret:
+        secretName: hub-templates
+  extraVolumeMounts:
+    - name: templates
+      mountPath: /srv/templates
   image:
     name: jupyterhub/k8s-hub
     tag: "1.2.0"
@@ -325,13 +330,8 @@ proxy:
     resources: { }
     labels: { }
     extraEnv: { }
-    extraVolumes:
-      - name: templates
-        secret:
-          secretName: hub-templates
-    extraVolumeMounts:
-      - name: templates
-        mountPath: /srv/templates
+    extraVolumes: { }
+    extraVolumeMounts: { }
     extraStaticConfig: { }
     extraDynamicConfig: { }
     nodeSelector: { }
