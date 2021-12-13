@@ -330,8 +330,8 @@ proxy:
     resources: { }
     labels: { }
     extraEnv: { }
-    extraVolumes: { }
-    extraVolumeMounts: { }
+    extraVolumes: [ ]
+    extraVolumeMounts: [ ]
     extraStaticConfig: { }
     extraDynamicConfig: { }
     nodeSelector: { }
