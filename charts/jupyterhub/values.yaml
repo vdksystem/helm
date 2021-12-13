@@ -130,6 +130,9 @@ hub:
             [f'{group}={gid}' for (gid, group)
             in sorted(groups.items(), key=lambda x: x[1])  # sort on num
             ])
+          spawner.environment['NB_USER'] = user
+          spawner.environment['NB_USERNAME'] = user
+          spawner.environment['NB_GID'] = user
           gids = list(groups.values())
           if 1000 not in gids:
             gids.append(1000)
