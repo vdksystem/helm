@@ -458,6 +458,7 @@
         },
         "ingress": {
             "type": "object",
+            "title": "Access configuration",
             "properties": {
                 "annotations": {
                     "type": "object",
@@ -469,9 +470,11 @@
                 },
                 "enabled": {
                     "form": true,
+                    "title": "Enable access within cq network",
                     "type": "boolean"
                 },
                 "public": {
+                    "title": "Enable public access",
                     "form": true,
                     "type": "boolean"
                 },
@@ -1375,7 +1378,7 @@
                 "cpu": {
                     "type": "object",
                     "form": true,
-                    "title": "Resource limits",
+                    "title": "CPU resources",
                     "properties": {
                         "guarantee": {
                             "form": true,
@@ -1500,6 +1503,7 @@
                 "memory": {
                     "type": "object",
                     "form": true,
+                    "title": "Memory resources",
                     "properties": {
                         "guarantee": {
                             "form": true,
