@@ -485,7 +485,7 @@ singleuser:
   fsGid: 100
   serviceAccountName: ""
   storage:
-    type: dynamic
+    type: static
     extraLabels: { }
     extraVolumes:
       - name: cqai-data-volume
