@@ -106,100 +106,51 @@ hub:
   command: [ ]
   args: [ ]
   extraConfig:
-    10-secretToEnv: |
-      import base64
-      import requests
-
-      requests.packages.urllib3.disable_warnings()
-
-      from kubernetes import client  # , config
-
-
-      def modify_pod_hook(spawner, pod):
-          user = spawner.user.name
-          pod.spec.containers[0].env.append(
-              client.V1EnvVar(
-                  name='LIBERATOR_USER',
-                  value=user
-              )
-          )
-
-          # config.load_incluster_config()
-          secret = client.CoreV1Api().read_namespaced_secret(
-              "tath-token-secret",
-              "workbench")  # requires role/binding hub-secrets.yaml
-          tath_master_token = base64.b64decode(secret.data['token']).decode('ascii')
-          tath_userinfo_url = base64.b64decode(secret.data['url']).decode('ascii')
-          try:
-              r = requests.get(tath_userinfo_url + '/' + user + '?secrets=true&fields=token',
-                               headers={'X-Auth-Token': tath_master_token, 'Accept': 'application/json'},
-                               verify=False
-                               )
-              token = r.json()[user]['token']
-          except:
-              token = 'had_userinfo_exception'
-              pod.spec.containers[0].env.append(
-                  client.V1EnvVar(
-                      name='LIBERATOR_TOKEN',
-                      value=token
-                      # to defer getting a secret until later
-                      # value_from=client.V1EnvVarSource(
-                      #    secret_key_ref=client.V1SecretKeySelector(
-                      #        name='...',
-                      #        key='...',
-                      #    )
-                      # )
-                  )
-              )
-          return pod
-
-      c.KubeSpawner.modify_pod_hook = modify_pod_hook
-
     legacy: |
       c.JupyterHub.logo_file = '/usr/local/share/jupyter/hub/static/images/logo.png'
       c.JupyterHub.ip = '127.0.0.1'
       c.Spawner.args = [f'--NotebookApp.allow_origin={"*"}']
       c.JupyterHub.tornado_settings = {'headers': {'Access-Control-Allow-Origin': '*',},}
       c.NotebookApp.allow_origin = '*'
-    supplementalGidsHook: |
-      # At this stage we're in PID 1, in /srv/jupyterhub
-      # uid=1000 euid=1000 gid=1000 egid=1000 gids=1000
-      import ldap
+    uidGid: |
+      from ldap3 import Server, Connection
+
       def ldap_get_gids(spawner):
-        '''
-        Return group IDs from LDAP for the user,
-        and also set envvar LDAP_GROUPS for later use.
-        '''
-        gids = []
-        try:
+          '''
+          Return group IDs from LDAP for the user,
+          '''
+          groups = dict()
+          server = Server(c.LDAPAuthenticator.server_address)
+          conn = Connection(server, auto_bind=True)
           user = spawner.user.name
-          group_dict = []
-          # don't really need encryption for a groups query
-          # (is there a way to reference auth/ldap/server from here?)
-          for url in ('ldap://ldap.cq/', 'ldaps://ldap.cq/'):
-            L = ldap.initialize(url)
-            try:
-              L.simple_bind()
-            except Exception:   # probably ldap.SERVER_DOWN
-              continue
-            # .search_s() is the synchronous variant
-            response = L.search_s('ou=groups,dc=cq', ldap.SCOPE_SUBTREE,
-                                  'memberUid=%s' % user,
-                                  ['cn', 'gidNumber'])
-            # the r[1] skips the dn in r[0]
-            group_dict = dict([(int(r[1]['gidNumber'][0]),
-                                    r[1]['cn'][0].decode('utf-8'))
-                               for r in response])
-          gids = sorted(group_dict)
-          # will use this var in singleuser/extraEnv/lifecycleHooks/postStart
+          conn.search('ou=groups,dc=cq', f'(memberUid={user})', attributes=['cn', 'gidNumber'])
+          for entry in conn.entries:
+              groups.update({entry.cn.value: entry.gidNumber.value})
           spawner.environment['LDAP_GROUPS'] = ':'.join(
-            ['%s=%s' % (group, gid) for (gid, group)
-             in sorted(group_dict.items(), key=lambda x: x[0])  # sort on num
-             if gid != 1000  # skip the accursed krtradedata=1000 group ID
+            [f'{group}={gid}' for (gid, group)
+            in sorted(groups.items(), key=lambda x: x[1])  # sort on num
             ])
-        except Exception:
-          spawner.environment['LDAP_GROUPS'] = '<error>'
-        return gids
+          gids = list(groups.values())
+          if 1000 not in gids:
+            gids.append(1000)
+            gids.append(100)
+          return gids
+
+      def ldap_get_uid(spawner):
+          '''
+          Return user ID from LDAP for the user,
+          '''
+          server = Server(c.LDAPAuthenticator.server_address)
+          conn = Connection(server, auto_bind=True)
+          user = spawner.user.name
+          conn.search('ou=users,dc=cq', f'(&(objectClass=person)(uid={user}))', attributes=['uidNumber'])
+          uid = conn.entries[0]['uidNumber']
+
+          return uid.value
+
+      c.KubeSpawner.uid = ldap_get_uid
+      c.KubeSpawner.gid = 100
+      c.KubeSpawner.fs_gid = ldap_get_uid
       c.KubeSpawner.supplemental_gids = ldap_get_gids
   extraFiles: { }
   extraEnv: { }
@@ -242,7 +193,7 @@ hub:
   authenticatePrometheus:
   redirectToServer:
   shutdownOnLogout:
-  templatePaths: [ ]
+  templatePaths: ['/srv/templates']
   templateVars: { }
   livenessProbe:
     # The livenessProbe's aim to give JupyterHub sufficient time to startup but
@@ -450,7 +401,7 @@ singleuser:
   cloudMetadata:
     # block set to true will append a privileged initContainer using the
     # iptables to block the sensitive metadata server at the provided ip.
-    blockWithIptables: true
+    blockWithIptables: false
     ip: 169.254.169.254
   networkPolicy:
     enabled: true
@@ -525,7 +476,7 @@ singleuser:
   extraContainers: [ ]
   uid: 1000
   fsGid: 100
-  serviceAccountName: hub
+  serviceAccountName:
   storage:
     type: dynamic
     extraLabels: { }
