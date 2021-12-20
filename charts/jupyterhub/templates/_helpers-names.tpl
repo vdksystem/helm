@@ -170,7 +170,7 @@
 
 {{- /* image-pull-secret Secret */}}
 {{- define "jupyterhub.image-pull-secret.fullname" -}}
-    {{- include "jupyterhub.fullname.dash" . }}image-pull-secret
+    {{- .Release.Name }}-image-pull-secret
 {{- end }}
 
 {{- /* Ingress */}}

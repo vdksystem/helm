@@ -6,7 +6,7 @@ apiVersion: networking.k8s.io/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ include "jupyterhub.ingress.fullname" . }}
+  name: {{ .Release.Name }}
   labels:
     {{- include "jupyterhub.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
