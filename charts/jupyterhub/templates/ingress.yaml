@@ -25,10 +25,10 @@ spec:
                 name: {{ include "jupyterhub.proxy-public.fullname" $ }}
                 port:
                   name: http
-      host: {{ include "jupyterhub.ingress.fullname" . }}-{{ .Release.Namespace}}.dev.cloudquant.ai
+      host: {{ .Release.Name }}-{{ .Release.Namespace}}.dev.cloudquant.ai
     {{- end }}
 
   tls:
   - hosts:
-    - {{ include "jupyterhub.ingress.fullname" . }}-{{ .Release.Namespace}}.dev.cloudquant.ai
-    secretName: {{ include "jupyterhub.ingress.fullname" . }}-{{ .Release.Namespace}}.dev.cloudquant.ai-tls
+    - {{ .Release.Name }}-{{ .Release.Namespace}}.dev.cloudquant.ai
+    secretName: {{ .Release.Name }}-{{ .Release.Namespace}}.dev.cloudquant.ai-tls
