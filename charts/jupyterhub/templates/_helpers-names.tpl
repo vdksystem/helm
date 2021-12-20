@@ -100,7 +100,7 @@
 
 {{- /* proxy Deployment */}}
 {{- define "jupyterhub.proxy.fullname" -}}
-    {{- .Release }}-proxy
+    {{- .Release.Name }}-proxy
 {{- end }}
 
 {{- /* proxy-api Service */}}
