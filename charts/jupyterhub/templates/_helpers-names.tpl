@@ -73,7 +73,7 @@
 
 {{- /* hub Deployment */}}
 {{- define "jupyterhub.hub.fullname" -}}
-    {{- include "jupyterhub.fullname.dash" . }}hub
+    {{- .Release.Name }}-hub
 {{- end }}
 
 {{- /* hub-existing-secret Secret */}}
