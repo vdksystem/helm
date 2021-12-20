@@ -100,7 +100,7 @@
 
 {{- /* proxy Deployment */}}
 {{- define "jupyterhub.proxy.fullname" -}}
-    {{- include "jupyterhub.fullname.dash" . }}proxy
+    {{- .Release }}-proxy
 {{- end }}
 
 {{- /* proxy-api Service */}}
@@ -135,7 +135,7 @@
 
 {{- /* user-scheduler Deployment */}}
 {{- define "jupyterhub.user-scheduler-deploy.fullname" -}}
-    {{- include "jupyterhub.fullname.dash" . }}user-scheduler
+    {{- .Release.Name }}-user-scheduler
 {{- end }}
 
 {{- /* user-scheduler leader election lock resource */}}
@@ -150,7 +150,7 @@
 
 {{- /* image-awaiter Job */}}
 {{- define "jupyterhub.hook-image-awaiter.fullname" -}}
-    {{- include "jupyterhub.fullname.dash" . }}hook-image-awaiter
+    {{- .Release.Name }}-hook-image-awaiter
 {{- end }}
 
 {{- /* hook-image-puller DaemonSet */}}
@@ -165,7 +165,7 @@
 
 {{- /* singleuser NetworkPolicy */}}
 {{- define "jupyterhub.singleuser.fullname" -}}
-    {{- include "jupyterhub.fullname.dash" . }}singleuser
+    {{- .Release.Name }}-singleuser
 {{- end }}
 
 {{- /* image-pull-secret Secret */}}
