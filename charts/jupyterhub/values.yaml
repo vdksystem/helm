@@ -714,6 +714,7 @@ ingress:
     - dkuleshov-hub.dev.cloudquant.ai
   pathSuffix:
   pathType: Prefix
+  useIngressWildcard: yes
   tls:
     - hosts:
         - dkuleshov-hub.dev.cloudquant.ai

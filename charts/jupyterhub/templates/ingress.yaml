@@ -31,4 +31,6 @@ spec:
   tls:
   - hosts:
     - {{ .Release.Name }}-{{ .Release.Namespace}}.dev.cloudquant.ai
+    {{- if not .Values.ingress.useIngressWildcard }}
     secretName: {{ .Release.Name }}-{{ .Release.Namespace}}.dev.cloudquant.ai-tls
+    {{- end }}
