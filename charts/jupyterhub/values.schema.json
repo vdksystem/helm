@@ -1373,10 +1373,11 @@
                 "cpu": {
                     "type": "object",
                     "form": true,
+                    "title": "CPU",
                     "properties": {
                         "guarantee": {
                             "form": true,
-                            "title": "CPU resources",
+                            "title": "CPU resources to allocate",
                             "render": "slider",
                             "sliderMin": 1,
                             "sliderMax": 14,
@@ -1489,11 +1490,12 @@
                 "memory": {
                     "type": "object",
                     "form": true,
+                    "title": "Memory",
                     "properties": {
                         "guarantee": {
                             "form": true,
                             "type": "string",
-                            "title": "Memory resources",
+                            "title": "Amount of memory to allocate",
                             "render": "slider",
                             "sliderMin": 1,
                             "sliderMax": 85,
