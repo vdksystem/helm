@@ -468,11 +468,6 @@
                         }
                     }
                 },
-                "enabled": {
-                    "form": true,
-                    "title": "Enable access within cq network",
-                    "type": "boolean"
-                },
                 "public": {
                     "title": "Enable public access",
                     "form": true,
@@ -1378,12 +1373,11 @@
                 "cpu": {
                     "type": "object",
                     "form": true,
-                    "title": "CPU resources",
                     "properties": {
                         "guarantee": {
                             "form": true,
+                            "title": "CPU resources",
                             "render": "slider",
-                            "title": "CPU guaranteed",
                             "sliderMin": 1,
                             "sliderMax": 14,
                             "type": "integer"
@@ -1495,11 +1489,11 @@
                 "memory": {
                     "type": "object",
                     "form": true,
-                    "title": "Memory resources",
                     "properties": {
                         "guarantee": {
                             "form": true,
                             "type": "string",
+                            "title": "Memory resources",
                             "render": "slider",
                             "sliderMin": 1,
                             "sliderMax": 85,
