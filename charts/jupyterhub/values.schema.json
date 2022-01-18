@@ -1499,7 +1499,7 @@
                             "render": "slider",
                             "sliderMin": 1,
                             "sliderMax": 85,
-                            "sliderUnit": "Gi"
+                            "sliderUnit": "G"
                         }
                     }
                 },
