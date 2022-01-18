@@ -1385,16 +1385,8 @@
                             "render": "slider",
                             "title": "CPU guaranteed",
                             "sliderMin": 1,
-                            "sliderMax": 4,
+                            "sliderMax": 14,
                             "type": "integer"
-                        },
-                        "limit": {
-                            "type": "integer",
-                            "form": true,
-                            "render": "slider",
-                            "title": "CPU Limit",
-                            "sliderMin": 1,
-                            "sliderMax": 4
                         }
                     }
                 },
@@ -1510,15 +1502,7 @@
                             "type": "string",
                             "render": "slider",
                             "sliderMin": 1,
-                            "sliderMax": 20,
-                            "sliderUnit": "Gi"
-                        },
-                        "limit": {
-                            "form": true,
-                            "type": "string",
-                            "render": "slider",
-                            "sliderMin": 1,
-                            "sliderMax": 20,
+                            "sliderMax": 85,
                             "sliderUnit": "Gi"
                         }
                     }

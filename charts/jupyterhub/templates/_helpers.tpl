@@ -215,8 +215,8 @@ strings become the name keys' values into $_.res */}}
 {{- $r2 := .Values.singleuser.memory.guarantee -}}
 {{- $r3 := .Values.singleuser.extraResource.guarantees -}}
 {{- $r := or $r1 $r2 $r3 -}}
-{{- $l1 := .Values.singleuser.cpu.limit -}}
-{{- $l2 := .Values.singleuser.memory.limit -}}
+{{- $l1 := .Values.singleuser.cpu.guarantee -}}
+{{- $l2 := .Values.singleuser.memory.guarantee -}}
 {{- $l3 := .Values.singleuser.extraResource.limits -}}
 {{- $l := or $l1 $l2 $l3 -}}
 {{- if $r -}}
@@ -237,7 +237,7 @@ requests:
 {{- if $l }}
 limits:
   {{- if $l1 }}
-  cpu: {{ .Values.singleuser.cpu.limit }}
+  cpu: {{ .Values.singleuser.cpu.guarantee }}
   {{- end }}
   {{- if $l2 }}
   memory: {{ .Values.singleuser.memory.limit }}
