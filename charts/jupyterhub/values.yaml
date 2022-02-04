@@ -130,6 +130,7 @@ hub:
               spawner.environment['LDAP_GROUPS'] = ':'.join(
                   [f'{group}={gid}' for (group, gid)
                    in sorted(groups.items(), key=lambda x: x[1])  # sort on num
+                   if gid != 1000
                    ])
               spawner.environment['NB_USER'] = user
               spawner.environment['NB_USERNAME'] = user
@@ -139,8 +140,8 @@ hub:
               print(e)
               spawner.environment['LDAP_GROUPS'] = '<error>'
           gids = list(groups.values())
-          if 1000 in gids:
-              gids.remove(1000)
+          if 1000 not in gids:
+              gids.append(1000)
           return gids
 
       def ldap_get_uid(spawner):
