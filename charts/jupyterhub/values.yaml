@@ -116,32 +116,37 @@ hub:
       from ldap3 import Server, Connection
 
       def ldap_get_gids(spawner):
-          '''
+          """
           Return group IDs from LDAP for the user,
-          '''
+          """
           groups = dict()
-          server = Server(c.LDAPAuthenticator.server_address)
-          conn = Connection(server, auto_bind=True)
-          user = spawner.user.name
-          conn.search('ou=groups,dc=cq', f'(memberUid={user})', attributes=['cn', 'gidNumber'])
-          for entry in conn.entries:
-              groups.update({entry.cn.value: entry.gidNumber.value})
-          spawner.environment['LDAP_GROUPS'] = ':'.join(
-            [f'{group}={gid}' for (gid, group)
-            in sorted(groups.items(), key=lambda x: x[1])  # sort on num
-            ])
-          spawner.environment['NB_USER'] = user
-          spawner.environment['NB_USERNAME'] = user
-          spawner.environment['NB_GID'] = user
+          try:
+              server = Server(c.LDAPAuthenticator.server_address)
+              conn = Connection(server, auto_bind=True)
+              user = spawner.user.name
+              conn.search('ou=groups,dc=cq', f'(memberUid={user})', attributes=['cn', 'gidNumber'])
+              for entry in conn.entries:
+                  groups.update({entry.cn.value: entry.gidNumber.value})
+              spawner.environment['LDAP_GROUPS'] = ':'.join(
+                  [f'{group}={gid}' for (group, gid)
+                   in sorted(groups.items(), key=lambda x: x[1])  # sort on num
+                   ])
+              spawner.environment['NB_USER'] = user
+              spawner.environment['NB_USERNAME'] = user
+              spawner.environment['NB_GID'] = user
+          except Exception as e:
+              print("Something went wrong on getting user info from LDAP")
+              print(e)
+              spawner.environment['LDAP_GROUPS'] = '<error>'
           gids = list(groups.values())
-          if 1000 not in gids:
-            gids.append(1000)
+          if 1000 in gids:
+              gids.remove(1000)
           return gids
 
       def ldap_get_uid(spawner):
-          '''
+          """
           Return user ID from LDAP for the user,
-          '''
+          """
           server = Server(c.LDAPAuthenticator.server_address)
           conn = Connection(server, auto_bind=True)
           user = spawner.user.name
@@ -150,6 +155,7 @@ hub:
 
           return uid.value
 
+      # Values for setting Kubespawner attributes should be callable
       c.KubeSpawner.uid = ldap_get_uid
       c.KubeSpawner.gid = ldap_get_uid
       c.KubeSpawner.fs_gid = ldap_get_uid
