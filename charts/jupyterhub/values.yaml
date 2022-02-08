@@ -472,13 +472,14 @@ singleuser:
               done
             fi
             ln -s jovyan /home/${NB_USER} ||: ;
-            mkdir -p cqai/market-data cqai/data cqai/showcase;
+            mkdir -p cqai/market-data cqai/data cqai/showcase cqai/cqsignals;
             mkdir -p custom-env/envs custom-env/pkgs;
             ln -sf /srv/cqai/data/* cqai/data/ ||: ;
             ln -sf /srv/cqai/data/mktdb5/* cqai/market-data/ ||: ;
             cp /base/custom-env/* custom-env;
             ln -sf /srv/shared-scripts cqai/ ||: ;
             ln -sf /srv/showcase cqai/ ||: ;
+            ln -sf /srv/cqsignals cqai/ ||: ;
             ln -sf /srv/tutorials cqai/ ||: ;
             ln -sf /srv/admin cqai/ ||: ;
             ln -sf /srv/team-env custom-env/ ||: ;
@@ -513,6 +514,15 @@ singleuser:
       name: cqai-data-volume
       readOnly: false
       subPath: showcase
+    - name: cqai-data-volume
+      mountPath: /srv/cqai/cqsignals
+      subPath: cqsignals
+      readOnly: false
+# datasets is on a different NFS host, not cqai-data-{pvc,volume}
+#      - name: cqai-data-volume
+#        mountPath: /srv/cqai/datasets
+#        subPath: datasets
+#        readOnly: false
     - mountPath: /srv/mktdb5
       name: cqai-data-volume
       readOnly: true
@@ -537,6 +547,8 @@ singleuser:
       pvcName: cqai-userdata-pvc
       subPath: home/{username}
     capacity: 10Gi
+    # surely we can use {username} in the homeMountPath?
+    # related: https://github.com/jupyterhub/zero-to-jupyterhub-k8s/issues/1411
     homeMountPath: /home/jovyan
     dynamic:
       storageClass:
