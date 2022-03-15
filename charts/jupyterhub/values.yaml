@@ -178,8 +178,8 @@ hub:
     pullSecrets: [ ]
   resources: { }
   containerSecurityContext:
-    runAsUser: 1000
-    runAsGroup: 1000
+    runAsUser: 1900
+    runAsGroup: 1900
     allowPrivilegeEscalation: false
   lifecycle: { }
   services: { }
