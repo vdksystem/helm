@@ -53,6 +53,20 @@ entries:
     urls:
     - https://github.com/vdksystem/helm/releases/download/grafana-6.17.6/grafana-6.17.6.tgz
     version: 6.17.6
+  jupyterhack:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-04-23T18:50:32.981958305Z"
+    description: A Helm chart for Kubernetes
+    digest: eb291121cd15ac1de374d52284ccb7144cffe82817ef58ed61cf5eaa7215551f
+    maintainers:
+    - email: dkuleshov@adimen.tech
+      name: Dmitry Kuleshov
+    name: jupyterhack
+    type: application
+    urls:
+    - https://github.com/vdksystem/helm/releases/download/jupyterhack-0.1.1/jupyterhack-0.1.1.tgz
+    version: 0.1.1
   jupyterhub:
   - annotations:
       artifacthub.io/images: |
