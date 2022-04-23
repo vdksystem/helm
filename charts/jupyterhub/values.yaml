@@ -440,6 +440,12 @@ singleuser:
     hub.jupyter.org/network-access-hub: "true"
   extraFiles: { }
   extraEnv:
+    JUPYTER_GATEWAY_URL: 'http://enterprise-gateway.devops:8888'
+    JUPYTER_GATEWAY_HTTP_USER: 'guest'
+    JUPYTER_GATEWAY_HTTP_PWD: 'guest-password'
+    LOG_LEVEL: DEBUG
+    KERNEL_NAMESPACE: dkuleshov
+    KERNEL_SERVICE_ACCOUNT_NAME: default
     CHOWN_HOME: "yes"
     JUPYTER_ENABLE_LAB: "yes"
     LIBERATOR_REST_HOST: 10.12.32.22
