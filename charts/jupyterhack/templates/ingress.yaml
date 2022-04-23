@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jupyterhub
+  labels:
+    {{- include "jupyterhack.labels" . | nindent 4 }}
+spec:
+  ingressClassName: nonexistinclass
+  rules:
+    - host: hub-devops.click.cloudquant.ai
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nonexisting
+                port:
+                  name: http
