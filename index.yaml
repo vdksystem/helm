@@ -3,6 +3,32 @@ entries:
   grafana:
   - apiVersion: v2
     appVersion: 8.2.3
+    created: "2022-04-23T20:03:45.701499291Z"
+    description: The leading tool for querying and visualizing time series and metrics.
+    digest: d3b076e5a0b244b7581ac6c04ee0cb448f885adb163a2109a7afa19f61a9de2d
+    home: https://grafana.net
+    icon: https://raw.githubusercontent.com/grafana/grafana/master/public/img/logo_transparent_400x.png
+    kubeVersion: ^1.8.0-0
+    maintainers:
+    - email: zanhsieh@gmail.com
+      name: zanhsieh
+    - email: rluckie@cisco.com
+      name: rtluckie
+    - email: maor.friedman@redhat.com
+      name: maorfr
+    - email: miroslav.hadzhiev@gmail.com
+      name: Xtigyro
+    - email: mail@torstenwalter.de
+      name: torstenwalter
+    name: grafana
+    sources:
+    - https://github.com/grafana/grafana
+    type: application
+    urls:
+    - https://github.com/vdksystem/helm/releases/download/grafana-6.17.8/grafana-6.17.8.tgz
+    version: 6.17.8
+  - apiVersion: v2
+    appVersion: 8.2.3
     created: "2021-11-04T18:40:12.489286453Z"
     description: The leading tool for querying and visualizing time series and metrics.
     digest: edeb27c712f3f8e849344b0cb82621026204a9030d5109d7f56cdf59ec5897b2
@@ -68,6 +94,51 @@ entries:
     - https://github.com/vdksystem/helm/releases/download/jupyterhack-0.1.1/jupyterhack-0.1.1.tgz
     version: 0.1.1
   jupyterhub:
+  - annotations:
+      artifacthub.io/images: |
+        - image: jupyterhub/configurable-http-proxy:4.5.0
+          name: configurable-http-proxy
+        - image: jupyterhub/k8s-hub:1.2.0
+          name: k8s-hub
+        - image: jupyterhub/k8s-image-awaiter:1.2.0
+          name: k8s-image-awaiter
+        - image: jupyterhub/k8s-network-tools:1.2.0
+          name: k8s-network-tools
+        - image: jupyterhub/k8s-secret-sync:1.2.0
+          name: k8s-secret-sync
+        - image: jupyterhub/k8s-singleuser-sample:1.2.0
+          name: k8s-singleuser-sample
+        - image: k8s.gcr.io/kube-scheduler:v1.19.13
+          name: kube-scheduler
+        - image: k8s.gcr.io/pause:3.5
+          name: pause
+        - image: k8s.gcr.io/pause:3.5
+          name: pause
+        - image: traefik:v2.4.11
+          name: traefik
+    apiVersion: v2
+    appVersion: 1.5.0
+    created: "2022-04-23T20:03:45.81517131Z"
+    description: Multi-user Jupyter installation
+    digest: 63eb4e093dccdf9abf282c9011ae608c2ec22d42e7a16332c257b1f191f38f39
+    home: https://z2jh.jupyter.org
+    icon: https://jupyter.org/assets/hublogo.svg
+    keywords:
+    - jupyter
+    - jupyterhub
+    - z2jh
+    kubeVersion: '>=1.17.0-0'
+    maintainers:
+    - email: erik@sundellopensource.se
+      name: Erik Sundell
+    - name: Simon Li
+      url: https://github.com/manics/
+    name: jupyterhub
+    sources:
+    - https://github.com/jupyterhub/zero-to-jupyterhub-k8s
+    urls:
+    - https://github.com/vdksystem/helm/releases/download/jupyterhub-1.2.45/jupyterhub-1.2.45.tgz
+    version: 1.2.45
   - annotations:
       artifacthub.io/images: |
         - image: jupyterhub/configurable-http-proxy:4.5.0
@@ -2232,6 +2303,16 @@ entries:
   prefect-agent:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2022-04-23T20:03:45.925791427Z"
+    description: A Helm chart for Kubernetes
+    digest: ea6a5312de2bbf1c167f358e0c288944630c8bee9a567581bbedf2d408e60a69
+    name: prefect-agent
+    type: application
+    urls:
+    - https://github.com/vdksystem/helm/releases/download/prefect-agent-0.3.14/prefect-agent-0.3.14.tgz
+    version: 0.3.14
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2021-11-15T18:22:44.774449579Z"
     description: A Helm chart for Kubernetes
     digest: cd9c3fe3115d5d4bad4bcc6db90914398c7f3d64cbbd3886e36e8131833719b9
@@ -2451,6 +2532,22 @@ entries:
     - https://github.com/vdksystem/helm/releases/download/prefect-agent-0.1.0/prefect-agent-0.1.0.tgz
     version: 0.1.0
   timescaledb-single:
+  - apiVersion: v1
+    created: "2022-04-23T20:03:46.031862144Z"
+    description: TimescaleDB HA Deployment.
+    digest: a5d14e4c0539a53184a33ec079fead911f0bcb506e56eba2efb19f2228de4110
+    home: https://github.com/timescale/timescaledb-kubernetes
+    maintainers:
+    - email: support@timescale.com
+      name: TimescaleDB
+    name: timescaledb-single
+    sources:
+    - https://github.com/timescale/timescaledb-kubernetes
+    - https://github.com/timescale/timescaledb-docker-ha
+    - https://github.com/zalando/patroni
+    urls:
+    - https://github.com/vdksystem/helm/releases/download/timescaledb-single-0.10.4/timescaledb-single-0.10.4.tgz
+    version: 0.10.4
   - apiVersion: v1
     created: "2021-11-15T13:28:08.675659821Z"
     description: TimescaleDB HA Deployment.
