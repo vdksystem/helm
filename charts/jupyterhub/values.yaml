@@ -135,6 +135,8 @@ hub:
               spawner.environment['NB_USER'] = user
               spawner.environment['NB_USERNAME'] = user
               spawner.environment['NB_GID'] = user
+              spawner.environment['KERNEL_NAMESPACE'] = user
+              spawner.environment['KERNEL_USERNAME'] = user
           except Exception as e:
               print("Something went wrong on getting user info from LDAP")
               print(e)
@@ -444,8 +446,6 @@ singleuser:
     JUPYTER_GATEWAY_HTTP_USER: 'guest'
     JUPYTER_GATEWAY_HTTP_PWD: 'guest-password'
     LOG_LEVEL: DEBUG
-    KERNEL_NAMESPACE: dkuleshov
-    KERNEL_SERVICE_ACCOUNT_NAME: default
     CHOWN_HOME: "yes"
     JUPYTER_ENABLE_LAB: "yes"
     LIBERATOR_REST_HOST: 10.12.32.22
