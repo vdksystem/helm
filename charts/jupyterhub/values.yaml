@@ -115,6 +115,22 @@ hub:
     uidGid: |
       from ldap3 import Server, Connection
 
+      def get_liberator_token(user):
+        tath_url = os.environ.get("TATH_URL")
+        tath_master_token = os.environ.get("TATH_TOKEN")
+
+        try:
+            r = requests.get(tath_url + '/' + user + '?secrets=true&fields=token',
+                             headers={'X-Auth-Token': tath_master_token, 'Accept': 'application/json'},
+                             verify=False
+                             )
+            token = r.json()[user]['token']
+        except Exception as ex:
+            log.warning(f"Unable to get Tath token: {ex}")
+            token = 'had_userinfo_exception'
+
+        return token
+
       def ldap_get_gids(spawner):
           """
           Return group IDs from LDAP for the user,
@@ -137,6 +153,12 @@ hub:
               spawner.environment['NB_GID'] = user
               spawner.environment['KERNEL_NAMESPACE'] = user
               spawner.environment['KERNEL_USERNAME'] = user
+              # LIBERATOR credentials
+              spawner.environment['LIBERATOR_REST_HOST'] = "10.12.32.22"
+              spawner.environment['LIBERATOR_REST_PORT'] = "47753"
+              spawner.environment['LIBERATOR_SYSTEM'] = "CQ.AI"
+              spawner.environment['LIBERATOR_TOKEN'] = get_liberator_token(user)
+              spawner.environment['LIBERATOR_USER'] = user
           except Exception as e:
               print("Something went wrong on getting user info from LDAP")
               print(e)
@@ -445,6 +467,7 @@ singleuser:
     JUPYTER_GATEWAY_URL: 'http://enterprise-gateway.devops:8888'
     JUPYTER_GATEWAY_HTTP_USER: 'guest'
     JUPYTER_GATEWAY_HTTP_PWD: 'guest-password'
+    JUPYTER_GATEWAY_ENV_WHITELIST: '*'
     LOG_LEVEL: DEBUG
     CHOWN_HOME: "yes"
     JUPYTER_ENABLE_LAB: "yes"
