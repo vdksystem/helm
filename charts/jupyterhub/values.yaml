@@ -113,6 +113,7 @@ hub:
       c.JupyterHub.tornado_settings = {'headers': {'Access-Control-Allow-Origin': '*',},}
       c.NotebookApp.allow_origin = '*'
     uidGid: |
+      import requests
       from ldap3 import Server, Connection
 
       def get_liberator_token(user):
@@ -126,7 +127,7 @@ hub:
                              )
             token = r.json()[user]['token']
         except Exception as ex:
-            log.warning(f"Unable to get Tath token: {ex}")
+            print(f"Unable to get Tath token: {ex}")
             token = 'had_userinfo_exception'
 
         return token
