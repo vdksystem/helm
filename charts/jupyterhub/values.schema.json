@@ -230,7 +230,7 @@
                     "type": "array"
                 },
                 "extraEnv": {
-                    "type": "object"
+                    "type": "array"
                 },
                 "extraFiles": {
                     "type": "object"
